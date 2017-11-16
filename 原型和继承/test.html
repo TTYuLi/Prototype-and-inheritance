@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+</head>
+<body>
+  <script>
+  // //拷贝继承
+function Person (name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  Person.prototype.behaviour = function () {
+    console.log('大家好，我是一类人')
+  }
+
+  function Man (name, age, gender) {
+    this.gender = gender
+    var person = new Person(name,age)
+    // 在Man函数内部对Person进行遍历， 把People具有的属性赋值给Man
+    for (var k in person) {
+      this[k] = person[k]
+    }
+  }
+  Man.prototype.action = function () {
+    console.log('吃饭、睡觉、打豆豆')
+  }
+  //创建实例对象man
+  var man = new Man('张三', 18, '男')
+  var man2 = new Man('李四', 20, '女')
+  console.log(man.name)
+  console.log(man.age)
+  console.log(man)
+  console.log(man2)
+  man.behaviour()
+
+
+
+
+// 通过原型的方式进行继承
+// function Bird(legNum, wingNum) {
+//     this.leg = legNum;
+//     this.wing = wingNum;
+//   }
+//   Bird.prototype.appearance = function () {
+//     console.log('鸟类都有漂亮的羽毛')
+//   }
+//   function Swan (beh,legNum,wingNum) {
+//     this.behaviour =  beh;
+//   }
+//   Swan.prototype = new Bird(2,2,);// 继承了Bird中的属性和方法，但是不能通过传参修改这些值
+
+//   Swan.prototype.story = function () {
+//     console.log('是由丑小鸭变成的');
+//   }
+//    // 白天鹅
+//   var whiteSwan = new Swan('会游泳')
+//   console.log(whiteSwan)
+//   whiteSwan.appearance() // 鸟类都有漂亮的羽毛
+//   whiteSwan.story() // 是由丑小鸭变成的
+
+
+  // // call方法继承
+ // function Person (name, age) {
+ //  this.name = name;
+ //  this.age = age;
+ //  }
+ //  Person.prototype.behaviour = function () {
+ //    console.log('大家好，我是一类人')
+ //  }
+
+
+ //  function Man(name, age, gender) {
+ //    Person.call(this, name ,age);
+ //    this.gender = gender;
+ //  }
+ //  //可以创建多个实例对象
+ //  var man1 = new Man('张三', 18, '男')
+ //  var man2 = new Man('李四', 20, '女')
+ //  //但是 不能调用原型中的属性和方法
+ //  console.log(man1)
+ //  console.log(man2)
+ //  man1.behaviour()//会报错,这种方法继承不到Person函数中原型中的方法
+
+ // 组合继承
+ // function Person (name, age) {
+ //    this.name = name;
+ //    this.age = age;
+ //  }
+ //  //Person的原型
+ //  Person.prototype.behaviour = function () {
+ //    console.log('大家好，我是一类人')
+ //  }
+
+ //  //console.log(Person())//underfined
+
+ //  //Man 的构造函数
+ //  function Man(name, age, gender) {
+ //    //call调用的方法进行继承，这个方法改变了Man这个构造函数内部的指向（即constructor指针）
+ //    Person.call(this, name ,age);//第二次调用Person
+ //    this.gender = gender;
+ //  }
+ //  //这里的通过new创建了一个实例对象，并把这个实例对象赋值给了Man的原型对象, 所以改变了 Man原型对象的内部指针（constrouctor）
+ //  //原本Man 的原型对象中的constructor指向Man这个函数的，但是现在被改变成指向Person这个函数了
+
+ //  Man.prototype =  new Person() //第一次调用Person
+ //  //Man 原型对象中的方法
+ //  Man.prototype.action = function () {
+ //    console.log('吃饭、睡觉、打豆豆')
+ //  }
+ //  //可以创建多个实例对象
+ //  var man1 = new Man('张三', 18, '男')
+ //  var man2 = new Man('李四', 20, '女')
+ //  console.log(man1)
+ //  man1.behaviour()
+ //  man1.action()
+
+  //this 继承方式
+  //  //构造函数
+  // function Person (name, age) {
+  //   this.name = name
+  //   this.age = age
+  // }
+  // Person.prototype.behaviour = function () {
+  //   console.log('大家好，我是一类人')
+  // }
+
+  // function Man (name, age, gender) {
+  // //在Man中添加一个属性people，把People这个函数体赋值给Man的属性people，然后再进行调用
+  //   this.people = Person
+  //   //进行调用
+  //   this.people(name, age)
+
+  //   this.gender = gender
+  // }
+  // Man.prototype = function () {
+  //   console.log('吃饭、睡觉、打豆豆')
+  // }
+  // //实例对象
+  // var man = new Man('张三', 18 , '男')
+
+  // console.log(man)
+  // man.behaviour()// 报错  不能继承到Person原型中的属性方法
+  </script>
+</body>
+</html>
